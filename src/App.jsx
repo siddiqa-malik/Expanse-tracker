@@ -1,18 +1,15 @@
-import SummaryCard from "./components/SummaryCard";
-import TransactionForm from "./components/TransactionForm";
-import TransactionList from "./components/TransactionList";
-import  BalanceCard from "./components/BalanceCard";
+import reactDom from 'react-dom';
+import {RouterProvider} from 'react-router-dom';
+import router from './router/Router';
+import {ExpenseProvider} from './context/ExpenseContext';
+import './index.css';
 
 function App() {
-  return (
-    <div className="container">
-      <h1>Expense Tracker</h1>
-        <SummaryCard />
-        <BalanceCard />\    
-        <TransactionForm />
-        <TransactionList />
-    </div>
-  );
+ return(
+  
+    <RouterProvider router={router} />
+ 
+ )
 }
 
 export default App;

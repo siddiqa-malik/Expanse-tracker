@@ -5,35 +5,17 @@ function SummaryCard() {
   const { income, expense } = useContext(ExpenseContext);
 
   return (
-    <div
-      style={{
-        display: "flex",
-        gap: "20px",
-        marginBottom: "20px",
-      }}
-    >
-      <div
-        style={{
-          padding: "10px",
-          border: "1px solid green",
-        }}
-      >
-        <h3>Income</h3>
-        <h2 style={{ color: "green" }}>
-          +{income}
-        </h2>
+    <div className="grid grid-cols-2 gap-6 mb-6">
+      <div className="bg-gradient-to-br from-green-400 to-green-600 rounded-xl p-6 shadow-lg text-white">
+        <p className="text-sm font-semibold text-green-100 mb-2">Total Income</p>
+        <h2 className="text-4xl font-bold">+₹{income.toLocaleString()}</h2>
+        <p className="text-green-100 text-xs mt-2">All time earnings</p>
       </div>
 
-      <div
-        style={{
-          padding: "10px",
-          border: "1px solid red",
-        }}
-      >
-        <h3>Expense</h3>
-        <h2 style={{ color: "red" }}>
-          -{expense}
-        </h2>
+      <div className="bg-gradient-to-br from-red-400 to-red-600 rounded-xl p-6 shadow-lg text-white">
+        <p className="text-sm font-semibold text-red-100 mb-2">Total Expense</p>
+        <h2 className="text-4xl font-bold">-₹{expense.toLocaleString()}</h2>
+        <p className="text-red-100 text-xs mt-2">All time spending</p>
       </div>
     </div>
   );
