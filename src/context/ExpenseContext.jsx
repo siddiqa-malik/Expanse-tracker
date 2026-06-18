@@ -1,28 +1,47 @@
 import { useState, useCallback, useContext, createContext, useEffect } from "react";
+import { AuthContext } from "./AuthContext";
 
-const  ExpenseContext = createContext();
-
-const STORAGE_KEY = 'expense_transactions';
+const  ExpenseContext = createContext({
+  addTransaction: () => {},
+  deleteTransaction: () => {},
+  setTransaction: () => {},
+  transactions: [],
+  income: 0,
+  expense: 0,
+  balance: 0,
+});
 
 function ExpenseProvider ({children}){
 const [transactions, setTransaction] = useState([]);
+const authContext = useContext(AuthContext);
+const user = authContext?.user;
 
-// Load from localStorage on mount
+// Get user-specific storage key
+const getStorageKey = () => {
+  return user ? `expense_transactions_${user.email}` : 'expense_transactions_guest';
+};
+
+// Load from localStorage on mount or when user changes
 useEffect(() => {
-  const stored = localStorage.getItem(STORAGE_KEY);
+  const storageKey = getStorageKey();
+  const stored = localStorage.getItem(storageKey);
   if (stored) {
     try {
       setTransaction(JSON.parse(stored));
     } catch (error) {
       console.error('Error loading transactions:', error);
+      setTransaction([]);
     }
+  } else {
+    setTransaction([]);
   }
-}, []);
+}, [user]);
 
 // Save to localStorage whenever transactions change
 useEffect(() => {
-  localStorage.setItem(STORAGE_KEY, JSON.stringify(transactions));
-}, [transactions]);
+  const storageKey = getStorageKey();
+  localStorage.setItem(storageKey, JSON.stringify(transactions));
+}, [transactions, user]);
 
 const addTransaction = useCallback((transactionData) => {
   const newTransaction = {

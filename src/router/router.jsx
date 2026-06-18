@@ -1,8 +1,9 @@
-import {createBrowserRouter} from "react-router-dom";
+import { createBrowserRouter } from "react-router-dom";
 import MainLayout from "../layout/MainLayout";
 import Dashboard from "../pages/Dashboard";
-import Transactions from "../pages/Transactions";
-import AddTransaction from "../pages/AddTransaction";
+import Login from "../pages/Login";
+import Register from "../pages/Register";
+import ProtectedRoute from "./ProtectedRoute";
 
 const router = createBrowserRouter(
     [
@@ -12,15 +13,19 @@ const router = createBrowserRouter(
             children: [
                 {
                     index: true,
-                    element: <Dashboard />
-                },
-                { 
-                    path: "transactions",
-                    element: <Transactions />
+                    element: (
+                        <ProtectedRoute>
+                            <Dashboard />
+                        </ProtectedRoute>
+                    )
                 },
                 {
-                    path: "add-transaction",
-                    element: <AddTransaction />
+                    path: "login",
+                    element: <Login />
+                },
+                {
+                    path: "register",
+                    element: <Register />
                 }
             ]
         }

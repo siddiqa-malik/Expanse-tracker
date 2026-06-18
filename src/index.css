@@ -1,1 +1,84 @@
 @import "tailwindcss";
+
+* {
+  @apply transition-colors;
+}
+
+body {
+  @apply bg-gradient-to-br from-gray-50 via-gray-100 to-emerald-50;
+}
+
+/* Animations */
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: scale(0.95);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+@keyframes slideInUp {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.animate-fadeIn {
+  animation: fadeIn 0.3s ease-in-out;
+}
+
+.animate-slideInUp {
+  animation: slideInUp 0.4s ease-out;
+}
+
+/* Custom scrollbar */
+::-webkit-scrollbar {
+  width: 8px;
+}
+
+::-webkit-scrollbar-track {
+  @apply bg-gray-100;
+}
+
+::-webkit-scrollbar-thumb {
+  @apply bg-emerald-500 rounded-full hover:bg-emerald-600;
+}
+
+/* Input focus states */
+input:focus,
+select:focus {
+  @apply ring-2 ring-emerald-300 ring-offset-2;
+}
+
+/* Button hover effects */
+button {
+  @apply transition-all duration-200;
+}
+
+button:active {
+  @apply translate-y-0.5;
+}
+
+/* Smooth page transitions */
+html {
+  scroll-behavior: smooth;
+}
+
+/* Responsive typography */
+@media (max-width: 640px) {
+  h1 {
+    @apply text-3xl;
+  }
+  
+  h2 {
+    @apply text-2xl;
+  }
+}

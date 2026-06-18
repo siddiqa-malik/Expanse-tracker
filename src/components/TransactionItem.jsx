@@ -6,22 +6,31 @@ function TransactionItem({ transaction }) {
   const isIncome = transaction.type === "income";
 
   return (
-    <div className={`flex items-center justify-between p-4 rounded-lg border-l-4 mb-3 shadow-sm transition hover:shadow-md ${
+    <div className={`flex items-center justify-between p-5 rounded-2xl border-2 mb-3 shadow-md transition hover:shadow-lg transform hover:scale-102 ${
       isIncome 
-        ? 'bg-green-50 border-l-green-500' 
-        : 'bg-red-50 border-l-red-500'
+        ? 'bg-gradient-to-r from-green-50 to-emerald-50 border-green-200' 
+        : 'bg-gradient-to-r from-red-50 to-orange-50 border-red-200'
     }`}>
-      <div className="flex-1">
-        <h4 className="font-semibold text-gray-800 mb-1">{transaction.title}</h4>
-        <p className={`text-xs font-medium ${
-          isIncome ? 'text-green-600' : 'text-red-600'
+      <div className="flex items-center flex-1 gap-4">
+        <div className={`p-3 rounded-xl font-bold text-xl ${
+          isIncome 
+            ? 'bg-green-200 text-green-700' 
+            : 'bg-red-200 text-red-700'
         }`}>
-          {isIncome ? 'Income' : ' Expense'}
-        </p>
+          {isIncome ? '📥' : '📤'}
+        </div>
+        <div className="flex-1 min-w-0">
+          <h4 className="font-bold text-gray-800 truncate">{transaction.title}</h4>
+          <p className={`text-xs font-bold uppercase tracking-wider ${
+            isIncome ? 'text-green-600' : 'text-red-600'
+          }`}>
+            {isIncome ? 'Income' : 'Expense'}
+          </p>
+        </div>
       </div>
 
-      <div className="text-right">
-        <h3 className={`text-lg font-bold mb-2 ${
+      <div className="flex items-center gap-4 ml-4">
+        <h3 className={`text-lg font-bold font-mono whitespace-nowrap ${
           isIncome ? 'text-green-600' : 'text-red-600'
         }`}>
           {isIncome ? '+' : '-'}₹{transaction.amount.toLocaleString()}
@@ -29,9 +38,10 @@ function TransactionItem({ transaction }) {
 
         <button
           onClick={() => deleteTransaction(transaction.id)}
-          className="bg-red-500 hover:bg-red-600 text-white text-xs font-semibold py-1 px-3 rounded transition transform hover:scale-105"
+          className="bg-red-500 hover:bg-red-600 text-white text-sm font-bold py-2 px-3 rounded-lg transition transform hover:scale-110 active:scale-95"
+          title="Delete transaction"
         >
-          🗑️ Delete
+          ✕
         </button>
       </div>
     </div>
